@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+import ListOfMovies from "./components/ListOfMovies";
+
+export default function App() {
+  const [keyword, setKeyword] = useState("simpsons");
+  const [value, setValue] = useState("");
+
+  function keyPress(e) {
+    if (e.keyCode === 13) {
+      setKeyword(e.target.value);
+    }
+  }
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={{ marginBottom: "32px" }}>
+        <input
+          placeholder="Nombre de la pelicula"
+          type="text"
+          value={value}
+          onKeyDown={keyPress}
+          onChange={handleChange}
+          style={{
+            height: "48px",
+            width: "356px",
+            fontSize: "24px",
+          }}
+        ></input>
+      </div>
+
+      <ListOfMovies keyword={keyword} />
     </div>
   );
 }
-
-export default App;
