@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Movie from "./Movie";
+import MovieCard from "./MovieCard";
 import getMovies from "../services/getMovies";
 
 export default function ListOfMovies({ keyword }) {
@@ -16,14 +16,9 @@ export default function ListOfMovies({ keyword }) {
   if (typeof movies == "object") {
     return (
       <>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-          }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
           {movies.map(({ id, title, release_date, poster_path }) => (
-            <Movie
+            <MovieCard
               key={id}
               id={id}
               title={title}

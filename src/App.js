@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 
 import ListOfMovies from "./components/ListOfMovies";
 
@@ -18,19 +17,15 @@ export default function App() {
   }
 
   return (
-    <div>
-      <div style={{ marginBottom: "32px" }}>
+    <div className="px-16">
+      <div className="py-8 w-56">
         <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Nombre de la pelicula"
           type="text"
           value={value}
           onKeyDown={keyPress}
           onChange={handleChange}
-          style={{
-            height: "48px",
-            width: "356px",
-            fontSize: "24px",
-          }}
         ></input>
       </div>
 
