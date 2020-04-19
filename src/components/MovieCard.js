@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emptyPoster from "../assets/empty_poster.png";
 
 export default function Movie({ id, title, release_date, poster_path }) {
+  const element = useRef(null);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(function (entries) {
+      const { isIntersecting } = entries[0];
+
+      if (isIntersecting) {
+        console.log(isIntersecting);
+        setShow(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(element.current);
+  }, [element]);
+
   return (
-    <div className="h-auto bg-white cursor-pointer max-w-sm rounded overflow-hidden shadow-md hover:shadow transition duration-300 ease-in-out">
-      <img
-        className="w-full"
-        src={poster_path == null ? emptyPoster : poster_path}
-        alt={title}
-      ></img>
-      <div className="px-6 py-4">
-        <div class="font-medium text-xl mb-2">{title}</div>
-        <p class="text-gray-700 font-light">{release_date}</p>
-      </div>
+    <div
+      ref={element}
+      className="bg-white cursor-pointer max-w-sm rounded overflow-hidden shadow-md hover:shadow transition duration-300 ease-in-out"
+      style={{ minHeight: "500px" }}
+    >
+      {show && (
+        <>
+          <img
+            className="animated fadeIn w-full"
+            src={poster_path == null ? emptyPoster : poster_path}
+            alt={title}
+          ></img>
+          <div className="animated fadeIn px-6 py-4">
+            <div className="font-medium text-xl mb-2">{title}</div>
+            <p className="text-gray-700 font-light">{release_date}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
