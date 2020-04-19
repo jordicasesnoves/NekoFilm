@@ -17,8 +17,8 @@ export default function App() {
   }
 
   return (
-    <div className="px-16">
-      <div className="py-8 w-56">
+    <div className="px-16 py-8 bg-gray-100">
+      <div className="w-56 pb-8">
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Nombre de la pelicula"
