@@ -17,16 +17,16 @@ export default function App() {
   }
 
   return (
-    <div className="px-16 py-8 bg-gray-100">
-      <div className="w-56 pb-8">
+    <div className="px-16 py-8 bg-gray-100 ">
+      <div className="w-64 pb-8 text-gray-700">
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="Nombre de la pelicula"
+          className="w-full shadow appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Search movies, tv shows..."
           type="text"
           value={value}
           onKeyDown={keyPress}
           onChange={handleChange}
-        ></input>
+        />
       </div>
 
       <ListOfMovies keyword={keyword} />
