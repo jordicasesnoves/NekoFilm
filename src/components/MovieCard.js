@@ -8,8 +8,13 @@ export default function Movie({ id, title, release_date, poster_path }) {
   const [liked, setLiked] = useState(() => {
     try {
       const like = window.localStorage.getItem(key);
-      return like;
+      if (like === "true") {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
+      console.error(e);
       return false;
     }
   });
@@ -33,6 +38,7 @@ export default function Movie({ id, title, release_date, poster_path }) {
   }, [element]);
 
   const setLocalStorage = (value) => {
+    console.log(value);
     try {
       window.localStorage.setItem(key, value);
       setLiked(value);
