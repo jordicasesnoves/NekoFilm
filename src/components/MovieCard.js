@@ -5,17 +5,23 @@ export default function Movie({ id, title, release_date, poster_path }) {
   const element = useRef(null);
   const [show, setShow] = useState(false);
 
+  // Using IntersectionObserver API for creating a 'lazy-load' when scrolling down
   useEffect(() => {
-    const observer = new window.IntersectionObserver(function (entries) {
-      const { isIntersecting } = entries[0];
-
-      if (isIntersecting) {
-        console.log(isIntersecting);
-        setShow(true);
-        observer.disconnect();
-      }
+    // Only load IntersectionObserver's Polyfill if it's not supported on current browser
+    Promise.resolve(
+      typeof window.IntersectionObserver != "undefined"
+        ? window.IntersectionObserver
+        : import("intersection-observer")
+    ).then(() => {
+      const observer = new window.IntersectionObserver((entries) => {
+        const { isIntersecting } = entries[0];
+        if (isIntersecting) {
+          setShow(true);
+          observer.disconnect();
+        }
+      });
+      observer.observe(element.current);
     });
-    observer.observe(element.current);
   }, [element]);
 
   return (
