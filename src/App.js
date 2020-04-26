@@ -18,11 +18,11 @@ export default function App() {
   const mediaTypeList = [
     {
       id: 1,
-      name: "Movies",
+      name: "🎬 Movies",
     },
     {
       id: 2,
-      name: "TV Shows",
+      name: "📺 TV Shows",
     },
   ];
 
