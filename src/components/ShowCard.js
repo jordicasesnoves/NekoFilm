@@ -5,9 +5,7 @@ function useLocalStorage(key, initialValue) {
   const [storedValue, setValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
-      return item !== null && item !== "undefined"
-        ? JSON.parse(item)
-        : initialValue;
+      return item !== null ? JSON.parse(item) : initialValue;
     } catch (e) {
       console.error(e);
       return initialValue;
@@ -26,7 +24,7 @@ function useLocalStorage(key, initialValue) {
   return [storedValue, setLocalStorage];
 }
 
-export default function Movie({ id, title, release_date, poster_path }) {
+export default function Show({ id, name, first_air_date, poster_path }) {
   const element = useRef(null);
   const [show, setShow] = useState(false);
   const key = `like-${id}`;
@@ -92,11 +90,11 @@ export default function Movie({ id, title, release_date, poster_path }) {
                 ? emptyPoster
                 : `https://image.tmdb.org/t/p/w300${poster_path}`
             }
-            alt={title}
+            alt={name}
           />
           <div className="animated fadeIn px-6 py-4">
-            <div className="font-medium text-xl mb-2">{title}</div>
-            <p className="text-gray-700 font-light">{release_date}</p>
+            <div className="font-medium text-xl mb-2">{name}</div>
+            <p className="text-gray-700 font-light">{first_air_date}</p>
           </div>
         </>
       )}

@@ -2,55 +2,51 @@ import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-import MovieCard from "./MovieCard";
+import ShowCard from "./ShowCard";
 
-const MOVIE_LIST = gql`
-  query Movies($title: String!) {
-    movies(title: $title) {
+const TV_SHOW_LIST = gql`
+  query Shows($name: String!) {
+    shows(name: $name) {
       results {
         id
-        title
+        name
         poster_path
-        release_date
+        first_air_date
       }
     }
   }
 `;
 
-export default function ListOfMovies({ keyword }) {
-  // Once the component is mounted, do the graphql query
+export default function ListOfShows({ keyword }) {
+  // Only do the query when the component is mounted
   useEffect(() => {
-    getMovies();
+    getShows();
   }, []);
 
-  const [getMovies, { called, loading, error, data }] = useLazyQuery(
-    MOVIE_LIST,
-    {
-      variables: { title: keyword },
-    }
-  );
+  const [
+    getShows,
+    { called, loading, data, error, stopPolling },
+  ] = useLazyQuery(TV_SHOW_LIST, {
+    variables: { name: keyword },
+  });
 
-  // Empty State
   if (keyword === "") {
     return "Please type something";
   }
 
   if (called && loading) return <h1>Loading...</h1>;
-
-  // If the graphql's query is not called, the component is still mounting
   if (!called) return <h1>Loading...</h1>;
-
   if (error) return `Error! ${error}`;
 
   return (
     <>
       <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
-        {data.movies.results.map(({ id, title, release_date, poster_path }) => (
-          <MovieCard
+        {data.shows.results.map(({ id, name, first_air_date, poster_path }) => (
+          <ShowCard
             key={id}
             id={id}
-            title={title}
-            release_date={release_date}
+            name={name}
+            first_air_date={first_air_date}
             poster_path={poster_path}
           />
         ))}
