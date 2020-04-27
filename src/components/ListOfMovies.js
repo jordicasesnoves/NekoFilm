@@ -18,17 +18,16 @@ const MOVIE_LIST = gql`
 `;
 
 export default function ListOfMovies({ keyword }) {
-  // Once the component is mounted, do the graphql query
-  useEffect(() => {
-    getMovies();
-  }, []);
-
   const [getMovies, { called, loading, error, data }] = useLazyQuery(
     MOVIE_LIST,
     {
       variables: { title: keyword },
     }
   );
+  // Once the component is mounted, do the graphql query
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
 
   // Empty State
   if (keyword === "") {
@@ -44,17 +43,15 @@ export default function ListOfMovies({ keyword }) {
 
   return (
     <>
-      <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
-        {data.movies.results.map(({ id, title, release_date, poster_path }) => (
-          <MovieCard
-            key={id}
-            id={id}
-            title={title}
-            release_date={release_date}
-            poster_path={poster_path}
-          />
-        ))}
-      </div>
+      {data.movies.results.map(({ id, title, release_date, poster_path }) => (
+        <MovieCard
+          key={id}
+          id={id}
+          title={title}
+          release_date={release_date}
+          poster_path={poster_path}
+        />
+      ))}
     </>
   );
 }

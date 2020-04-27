@@ -18,17 +18,17 @@ const TV_SHOW_LIST = gql`
 `;
 
 export default function ListOfShows({ keyword }) {
+  const [getShows, { called, loading, data, error }] = useLazyQuery(
+    TV_SHOW_LIST,
+    {
+      variables: { name: keyword },
+    }
+  );
+
   // Only do the query when the component is mounted
   useEffect(() => {
     getShows();
-  }, []);
-
-  const [
-    getShows,
-    { called, loading, data, error, stopPolling },
-  ] = useLazyQuery(TV_SHOW_LIST, {
-    variables: { name: keyword },
-  });
+  }, [getShows]);
 
   if (keyword === "") {
     return "Please type something";
@@ -40,17 +40,15 @@ export default function ListOfShows({ keyword }) {
 
   return (
     <>
-      <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
-        {data.shows.results.map(({ id, name, first_air_date, poster_path }) => (
-          <ShowCard
-            key={id}
-            id={id}
-            name={name}
-            first_air_date={first_air_date}
-            poster_path={poster_path}
-          />
-        ))}
-      </div>
+      {data.shows.results.map(({ id, name, first_air_date, poster_path }) => (
+        <ShowCard
+          key={id}
+          id={id}
+          name={name}
+          first_air_date={first_air_date}
+          poster_path={poster_path}
+        />
+      ))}
     </>
   );
 }

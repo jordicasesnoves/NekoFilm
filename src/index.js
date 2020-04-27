@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import "./assets/main.css";
 // Import AnimateCSS library
 import "./assets/animate.css";
+import "./assets/index.css";
 
 import App from "./App";
 import ApolloClient from "apollo-boost";
