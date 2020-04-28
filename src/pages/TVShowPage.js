@@ -5,30 +5,10 @@ import { useParams } from "react-router-dom";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { LazyPoster } from "../components/LazyPoster";
 import { tvshowQuery } from "../graphql/TvshowQuery";
+import { CastList } from "../components/CastList";
 
-export const ShowPage = () => {
+export const TVShowPage = () => {
   let { id } = useParams();
-
-  function getMainCast() {
-    let { cast } = data.show.credits;
-    let mainActors = cast.slice(0, 6);
-
-    return mainActors.map((castMember, index) => (
-      <div className="w-24 mr-2" key={castMember.id}>
-        <LazyPoster
-          width={300}
-          className="rounded shadow-2xl max-w-none"
-          src={castMember.profile_path}
-          alt={castMember.name}
-        />
-
-        <div className="text-sm mt-1">{castMember.name} </div>
-        <div className="text-sm -mt-1 text-gray-600">
-          ({castMember.character})
-        </div>
-      </div>
-    ));
-  }
 
   const [getShow, { called, loading, data, error }] = useLazyQuery(
     tvshowQuery,
@@ -99,10 +79,14 @@ export const ShowPage = () => {
         <div className="mb-6 ">{data.show.overview}</div>
 
         <ul className="mb-6 leading-relaxed ">
-          <li className="mb-6">
-            <div className="text-gray-500 font-medium">CAST </div>
-            <div className="flex flex-wrap">{getMainCast()}</div>
-          </li>
+          {CastList.length > 0 && (
+            <li className="mb-6">
+              <div className="text-gray-500 font-medium">CAST </div>
+              <div className="flex">
+                <CastList cast={data.show.credits.cast} />
+              </div>
+            </li>
+          )}
           <li>
             <span className="text-gray-500 font-medium mr-2">SEASONS </span>
             <span>{data.show.number_of_seasons} </span>

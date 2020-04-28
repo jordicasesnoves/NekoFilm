@@ -5,7 +5,7 @@ import { ContextProvider } from "./Context";
 
 import { HomePage } from "./pages/HomePage";
 import { MoviePage } from "./pages/MoviePage";
-import { ShowPage } from "./pages/ShowPage";
+import { TVShowPage } from "./pages/TVShowPage";
 
 import { Navbar } from "./components/Navbar";
 
@@ -19,7 +19,7 @@ export default function App() {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/movie/:id" component={MoviePage} />
-              <Route path="/show/:id" component={ShowPage} />
+              <Route path="/show/:id" component={TVShowPage} />
             </Switch>
           </div>
         </div>

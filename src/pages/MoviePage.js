@@ -7,6 +7,8 @@ import { useLazyQuery } from "@apollo/react-hooks";
 
 import { LazyPoster } from "../components/LazyPoster";
 
+import { CastList } from "../components/CastList";
+
 export const MoviePage = () => {
   let { id } = useParams();
 
@@ -20,26 +22,6 @@ export const MoviePage = () => {
       }
     });
     return directors.join(", ");
-  }
-
-  function getMainCast() {
-    let { cast } = data.movie.credits;
-    let mainActors = cast.slice(0, 6);
-
-    return mainActors.map((castMember, index) => (
-      <div className="w-24 mr-2" key={castMember.id}>
-        <LazyPoster
-          className="rounded shadow"
-          src={castMember.profile_path}
-          alt={castMember.name}
-        />
-
-        <div className="text-sm mt-1 truncate">{castMember.name} </div>
-        <div className="text-sm -mt-1 text-gray-600 truncate">
-          ({castMember.character})
-        </div>
-      </div>
-    ));
   }
 
   const [getMovie, { called, loading, data, error }] = useLazyQuery(
@@ -108,10 +90,12 @@ export const MoviePage = () => {
         <div className="mb-6 ">{data.movie.overview}</div>
 
         <ul className="mb-6 leading-relaxed ">
-          {getMainCast().length > 0 && (
+          {CastList.length > 0 && (
             <li className="mb-6">
               <div className="text-gray-500 font-medium">CAST </div>
-              <div className="flex flex-row">{getMainCast()}</div>
+              <div className="flex">
+                <CastList cast={data.movie.credits.cast} />
+              </div>
             </li>
           )}
           <li>
