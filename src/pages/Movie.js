@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import emptyPoster from "../assets/empty_poster.png";
+import { LazyPoster } from "../components/LazyPoster";
 
 export const Movie = () => {
   let { id } = useParams();
@@ -62,18 +62,14 @@ export const Movie = () => {
 
     return mainActors.map((castMember, index) => (
       <div className="w-24 mr-2" key={castMember.id}>
-        <img
-          className="inline w-24 rounded"
-          src={
-            castMember.profile_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w400${castMember.profile_path}`
-          }
-          alt=""
+        <LazyPoster
+          className="rounded shadow"
+          src={castMember.profile_path}
+          alt={castMember.name}
         />
 
-        <div className="text-sm mt-1">{castMember.name} </div>
-        <div className="text-sm -mt-1 text-gray-600">
+        <div className="text-sm mt-1 truncate">{castMember.name} </div>
+        <div className="text-sm -mt-1 text-gray-600 truncate">
           ({castMember.character})
         </div>
       </div>
@@ -97,7 +93,7 @@ export const Movie = () => {
     if (loading === false && called) {
       getDirectors();
     }
-  }, [loading]);
+  }, [loading, called]);
 
   if (!id) return `Please provide a movie id!`;
   if (called && loading)
@@ -105,20 +101,18 @@ export const Movie = () => {
   if (!called) return <h1 className="max-w-6xl mx-auto flex">Loading...</h1>;
   if (error) return `Error! ${error}`;
 
+  // MAIN RETURN
   return (
     <div className="flex ">
       <div className="mr-16">
-        <img
-          className="max-w-sm rounded-lg shadow-2xl"
-          src={
-            data.movie.poster_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w400${data.movie.poster_path}`
-          }
+        <LazyPoster
+          width={300}
+          className="rounded shadow-2xl max-w-none"
+          src={data.movie.poster_path}
           alt={data.movie.title}
         />
       </div>
-      <div className="">
+      <div>
         <div className="flex-row mb-1 items-center">
           <div className="inline mr-2 text-5xl font-medium align-middle">
             {data.movie.title}
@@ -148,10 +142,12 @@ export const Movie = () => {
         <div className="mb-6 ">{data.movie.overview}</div>
 
         <ul className="mb-6 leading-relaxed ">
-          <li className="mb-6">
-            <div className="text-gray-500 font-medium">CAST </div>
-            <div className="flex flex-row">{getMainCast()}</div>
-          </li>
+          {getMainCast().length > 0 && (
+            <li className="mb-6">
+              <div className="text-gray-500 font-medium">CAST </div>
+              <div className="flex flex-row">{getMainCast()}</div>
+            </li>
+          )}
           <li>
             <span className="text-gray-500 font-medium mr-2">RELEASED </span>
             <span>{data.movie.release_date} </span>
@@ -166,12 +162,14 @@ export const Movie = () => {
               <span>{getDirectors()}</span>
             </li>
           )}
-          <li>
-            <span className="text-gray-500 font-medium mr-2">COUNTRIES </span>
-            {data.movie.production_countries.map((country) => (
-              <span key={country.iso_3166_1}>{country.name}</span>
-            ))}
-          </li>
+          {data.movie.production_countries.length > 0 && (
+            <li>
+              <span className="text-gray-500 font-medium mr-2">COUNTRIES </span>
+              {data.movie.production_countries.map((country) => (
+                <span key={country.iso_3166_1}>{country.name}</span>
+              ))}
+            </li>
+          )}
         </ul>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import emptyPoster from "../assets/empty_poster.png";
+import ProgressiveImage from "react-progressive-image-loading";
 
 export const Show = () => {
   let { id } = useParams();
@@ -43,18 +44,32 @@ export const Show = () => {
 
   function getMainCast() {
     let { cast } = data.show.credits;
-    let mainActors = cast.slice(0, 10);
+    let mainActors = cast.slice(0, 6);
 
     return mainActors.map((castMember, index) => (
       <div className="w-24 mr-2" key={castMember.id}>
-        <img
-          className="shadow inline w-24 rounded"
+        <ProgressiveImage
+          transitionTime={500}
+          transitionFunction="ease"
+          className="inline w-24 rounded shadow "
           src={
             castMember.profile_path == null
               ? emptyPoster
               : `https://image.tmdb.org/t/p/w400${castMember.profile_path}`
           }
-          alt=""
+          preview={
+            castMember.profile_path == null
+              ? emptyPoster
+              : `https://image.tmdb.org/t/p/w92${castMember.profile_path}`
+          }
+          render={(src, style) => (
+            <img
+              className="inline w-24 rounded shadow"
+              width={400}
+              src={src}
+              style={style}
+            />
+          )}
         />
 
         <div className="text-sm mt-1">{castMember.name} </div>
@@ -89,14 +104,30 @@ export const Show = () => {
   return (
     <div className="flex">
       <div className="mr-16">
-        <img
-          className="max-w-sm rounded-lg shadow-2xl"
+        <ProgressiveImage
+          width={400}
+          height={600}
+          transitionTime={500}
+          transitionFunction="ease"
+          className="rounded"
           src={
             data.show.poster_path == null
               ? emptyPoster
               : `https://image.tmdb.org/t/p/w400${data.show.poster_path}`
           }
-          alt={data.show.name}
+          preview={
+            data.show.poster_path == null
+              ? emptyPoster
+              : `https://image.tmdb.org/t/p/w92${data.show.poster_path}`
+          }
+          render={(src, style) => (
+            <img
+              className="rounded shadow-2xl max-w-none"
+              width={300}
+              src={src}
+              style={style}
+            />
+          )}
         />
       </div>
       <div className="flex-1">
