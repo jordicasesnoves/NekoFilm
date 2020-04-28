@@ -3,6 +3,7 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import ShowCard from "./ShowCard";
+import { Link } from "react-router-dom";
 
 const TV_SHOW_LIST = gql`
   query Shows($name: String!) {
@@ -41,13 +42,15 @@ export default function ListOfShows({ keyword }) {
   return (
     <>
       {data.shows.results.map(({ id, name, first_air_date, poster_path }) => (
-        <ShowCard
-          key={id}
-          id={id}
-          name={name}
-          first_air_date={first_air_date}
-          poster_path={poster_path}
-        />
+        <Link key={id} to={`/show/${id}`}>
+          <ShowCard
+            key={id}
+            id={id}
+            name={name}
+            first_air_date={first_air_date}
+            poster_path={poster_path}
+          />
+        </Link>
       ))}
     </>
   );

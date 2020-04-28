@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Home, Movie } from "./pages";
+import { Home, Movie, Show } from "./pages";
 import { Navbar } from "./components/Navbar";
 import { ContextProvider } from "./Context";
 
@@ -15,6 +15,7 @@ export default function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/movie/:id" component={Movie} />
+              <Route path="/show/:id" component={Show} />
             </Switch>
           </div>
         </div>
