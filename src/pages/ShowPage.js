@@ -3,44 +3,11 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useLazyQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import emptyPoster from "../assets/empty_poster.png";
-import ProgressiveImage from "react-progressive-image-loading";
+import { LazyPoster } from "../components/LazyPoster";
+import { tvshowQuery } from "../graphql/TvshowQuery";
 
-export const Show = () => {
+export const ShowPage = () => {
   let { id } = useParams();
-
-  const SHOW_QUERY = gql`
-    query Show($id: Int!) {
-      show(id: $id) {
-        id
-        name
-        created_by {
-          id
-          name
-        }
-        poster_path
-        backdrop_path
-        first_air_date
-        last_air_date
-        number_of_seasons
-        overview
-        vote_average
-        genres {
-          id
-          name
-        }
-        credits {
-          cast {
-            id
-            name
-            character
-            profile_path
-          }
-        }
-      }
-    }
-  `;
 
   function getMainCast() {
     let { cast } = data.show.credits;
@@ -48,28 +15,11 @@ export const Show = () => {
 
     return mainActors.map((castMember, index) => (
       <div className="w-24 mr-2" key={castMember.id}>
-        <ProgressiveImage
-          transitionTime={500}
-          transitionFunction="ease"
-          className="inline w-24 rounded shadow "
-          src={
-            castMember.profile_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w400${castMember.profile_path}`
-          }
-          preview={
-            castMember.profile_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w92${castMember.profile_path}`
-          }
-          render={(src, style) => (
-            <img
-              className="inline w-24 rounded shadow"
-              width={400}
-              src={src}
-              style={style}
-            />
-          )}
+        <LazyPoster
+          width={300}
+          className="rounded shadow-2xl max-w-none"
+          src={castMember.profile_path}
+          alt={castMember.name}
         />
 
         <div className="text-sm mt-1">{castMember.name} </div>
@@ -80,9 +30,12 @@ export const Show = () => {
     ));
   }
 
-  const [getShow, { called, loading, data, error }] = useLazyQuery(SHOW_QUERY, {
-    variables: { id: Number(id) },
-  });
+  const [getShow, { called, loading, data, error }] = useLazyQuery(
+    tvshowQuery,
+    {
+      variables: { id: Number(id) },
+    }
+  );
 
   // Only do the query when the getMovie function is ready
   useEffect(() => {
@@ -104,30 +57,11 @@ export const Show = () => {
   return (
     <div className="flex">
       <div className="mr-16">
-        <ProgressiveImage
-          width={400}
-          height={600}
-          transitionTime={500}
-          transitionFunction="ease"
-          className="rounded"
-          src={
-            data.show.poster_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w400${data.show.poster_path}`
-          }
-          preview={
-            data.show.poster_path == null
-              ? emptyPoster
-              : `https://image.tmdb.org/t/p/w92${data.show.poster_path}`
-          }
-          render={(src, style) => (
-            <img
-              className="rounded shadow-2xl max-w-none"
-              width={300}
-              src={src}
-              style={style}
-            />
-          )}
+        <LazyPoster
+          width={300}
+          className="rounded shadow-2xl max-w-none"
+          src={data.show.poster_path}
+          alt={data.show.name}
         />
       </div>
       <div className="flex-1">

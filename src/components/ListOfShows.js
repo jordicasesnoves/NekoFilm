@@ -1,26 +1,12 @@
 import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-
 import ShowCard from "./ShowCard";
 import { Link } from "react-router-dom";
-
-const TV_SHOW_LIST = gql`
-  query Shows($name: String!) {
-    shows(name: $name) {
-      results {
-        id
-        name
-        poster_path
-        first_air_date
-      }
-    }
-  }
-`;
+import { tvshowListQuery } from "../graphql/TvshowListQuery";
 
 export default function ListOfShows({ keyword }) {
   const [getShows, { called, loading, data, error }] = useLazyQuery(
-    TV_SHOW_LIST,
+    tvshowListQuery,
     {
       variables: { name: keyword },
     }

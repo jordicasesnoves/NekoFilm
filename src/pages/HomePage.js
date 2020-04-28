@@ -5,7 +5,7 @@ import ListOfShows from "../components/ListOfShows";
 
 import { Context } from "../Context";
 
-export const Home = () => {
+export const HomePage = () => {
   const { state } = useContext(Context);
 
   return (

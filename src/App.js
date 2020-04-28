@@ -1,9 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Home, Movie, Show } from "./pages";
-import { Navbar } from "./components/Navbar";
 import { ContextProvider } from "./Context";
+
+import { HomePage } from "./pages/HomePage";
+import { MoviePage } from "./pages/MoviePage";
+import { ShowPage } from "./pages/ShowPage";
+
+import { Navbar } from "./components/Navbar";
 
 export default function App() {
   return (
@@ -13,9 +17,9 @@ export default function App() {
           <div className="max-w-6xl mx-auto px-8">
             <Navbar />
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/movie/:id" component={Movie} />
-              <Route path="/show/:id" component={Show} />
+              <Route exact path="/" component={HomePage} />
+              <Route path="/movie/:id" component={MoviePage} />
+              <Route path="/show/:id" component={ShowPage} />
             </Switch>
           </div>
         </div>

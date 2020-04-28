@@ -1,26 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-
 import MovieCard from "./MovieCard";
-
-const MOVIE_LIST = gql`
-  query Movies($title: String!) {
-    movies(title: $title) {
-      results {
-        id
-        title
-        poster_path
-        release_date
-      }
-    }
-  }
-`;
+import { movieListQuery } from "../graphql/MovieListQuery";
 
 export default function ListOfMovies({ keyword }) {
   const [getMovies, { called, loading, error, data }] = useLazyQuery(
-    MOVIE_LIST,
+    movieListQuery,
     {
       variables: { title: keyword },
     }

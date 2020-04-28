@@ -1,48 +1,14 @@
 import "../assets/movie.css";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { movieQuery } from "../graphql/MovieQuery";
 
 import { useLazyQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+
 import { LazyPoster } from "../components/LazyPoster";
 
-export const Movie = () => {
+export const MoviePage = () => {
   let { id } = useParams();
-
-  const MOVIE_QUERY = gql`
-    query Movie($id: Int!) {
-      movie(id: $id) {
-        title
-        id
-        poster_path
-        backdrop_path
-        release_date
-        overview
-        runtime
-        vote_average
-        production_countries {
-          iso_3166_1
-          name
-        }
-        genres {
-          id
-          name
-        }
-        credits {
-          cast {
-            id
-            name
-            character
-            profile_path
-          }
-          crew {
-            name
-            job
-          }
-        }
-      }
-    }
-  `;
 
   function getDirectors() {
     let { crew } = data.movie.credits;
@@ -77,7 +43,7 @@ export const Movie = () => {
   }
 
   const [getMovie, { called, loading, data, error }] = useLazyQuery(
-    MOVIE_QUERY,
+    movieQuery,
     {
       variables: { id: Number(id) },
     }
