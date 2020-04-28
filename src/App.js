@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Home } from "./pages/Home";
+import { Home, Movie } from "./pages";
 import { Navbar } from "./components/Navbar";
 import { ContextProvider } from "./Context";
 
@@ -10,10 +10,11 @@ export default function App() {
     <ContextProvider>
       <Router>
         <div className="bg-gray-100 min-h-screen">
-          <div className="px-16 py-8 max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto px-8">
             <Navbar />
             <Switch>
-              <Route exact path="/" component={Home}></Route>
+              <Route exact path="/" component={Home} />
+              <Route path="/movie/:id" component={Movie} />
             </Switch>
           </div>
         </div>

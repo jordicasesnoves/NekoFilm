@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
@@ -44,13 +45,14 @@ export default function ListOfMovies({ keyword }) {
   return (
     <>
       {data.movies.results.map(({ id, title, release_date, poster_path }) => (
-        <MovieCard
-          key={id}
-          id={id}
-          title={title}
-          release_date={release_date}
-          poster_path={poster_path}
-        />
+        <Link key={id} to={`/movie/${id}`}>
+          <MovieCard
+            id={id}
+            title={title}
+            release_date={release_date}
+            poster_path={poster_path}
+          />
+        </Link>
       ))}
     </>
   );
