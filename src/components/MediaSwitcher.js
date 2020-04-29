@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../Context";
 
-export const MediaSwitcher = () => {
+export const MediaSwitcher = ({ className }) => {
   const { state, setState } = useContext(Context);
 
   const mediaTypeList = [
@@ -20,9 +20,9 @@ export const MediaSwitcher = () => {
   }
 
   return (
-    <>
+    <div className={className}>
       <select
-        className="inline-flex bg-white h-10 px-4 shadow border rounded"
+        className="inline-flex bg-white h-10 shadow border rounded"
         value={state.mediaType}
         onChange={(e) => changeMediaType(e)}
       >
@@ -32,6 +32,6 @@ export const MediaSwitcher = () => {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

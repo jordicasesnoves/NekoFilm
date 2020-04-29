@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import emptyPoster from "../assets/empty_poster.png";
+import { LazyPoster } from "./LazyPoster";
 
 function useLocalStorage(key, initialValue) {
   const [storedValue, setValue] = useState(() => {
@@ -85,15 +86,12 @@ export default function Movie({ id, title, release_date, poster_path }) {
             </svg>
           </button>
 
-          <img
+          <LazyPoster
+            src={poster_path}
             className="relative animated fadeIn w-full"
-            src={
-              poster_path == null
-                ? emptyPoster
-                : `https://image.tmdb.org/t/p/w300${poster_path}`
-            }
             alt={title}
           />
+
           <div className="animated fadeIn px-6 py-4">
             <div className="font-medium text-xl mb-2">{title}</div>
             <p className="text-gray-700 font-light">{release_date}</p>

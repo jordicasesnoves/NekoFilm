@@ -2,7 +2,8 @@ import { LazyPoster } from "./LazyPoster";
 import React from "react";
 
 export const CastList = ({ cast }) => {
-  let mainActors = cast.slice(0, 6);
+  let maxActors = 7;
+  let mainActors = cast.slice(0, maxActors);
 
   return mainActors.map((castMember, index) => (
     <div className="w-24 mr-2" key={castMember.id}>
