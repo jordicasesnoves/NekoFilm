@@ -35,6 +35,7 @@ export const Navbar = () => {
       redirectToHomePage();
     }
   }
+
   function keyPress(e) {
     if (e.keyCode === 13) {
       if (e.target.value === "") {
@@ -93,7 +94,14 @@ export const Navbar = () => {
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="items-center flex">
+          <div className="px-4 py-2 rounded cursor-pointer mr-2 border">
+            Sign Up
+          </div>
+          <div className="px-4 py-2 bg-indigo-500 text-white rounded cursor-pointer">
+            Log In
+          </div>
+        </div>
       </div>
     </div>
   );

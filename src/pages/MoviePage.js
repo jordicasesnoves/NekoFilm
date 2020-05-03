@@ -9,6 +9,8 @@ import { LazyPoster } from "../components/LazyPoster";
 
 import { CastList } from "../components/CastList";
 
+import { ListItem } from "../components/ListItem";
+
 export const MoviePage = () => {
   let { id } = useParams();
 
@@ -99,13 +101,15 @@ export const MoviePage = () => {
             </li>
           )}
           <li>
-            <span className="text-gray-500 font-medium mr-2">RELEASED </span>
+            <span className="text-gray-500 font-medium mr-2">RELEASED</span>
             <span>{data.movie.release_date} </span>
           </li>
-          <li>
+
+          <ListItem item={data.movie.runtime}>
             <span className="text-gray-500 font-medium mr-2">DURATION </span>
             <span>{data.movie.runtime} min.</span>
-          </li>
+          </ListItem>
+
           {getDirectors().length > 0 && (
             <li>
               <span className="text-gray-500 font-medium mr-2">DIRECTION </span>
