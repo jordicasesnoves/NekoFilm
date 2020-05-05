@@ -107,7 +107,7 @@ export const SignUpPage = () => {
           </div>
           <div className="flex items-center justify-between mb-4">
             <button
-              className="bg-indigo-500 hover:bg-indigo-700 text-white py-2 w-full shadow rounded focus:outline-none focus:shadow-outline"
+              className="bg-indigo-500 hover:bg-indigo-700 duration-300 text-white py-2 w-full shadow rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               {loading ? (

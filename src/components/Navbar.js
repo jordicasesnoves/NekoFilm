@@ -122,7 +122,7 @@ export const Navbar = () => {
             </div>
             <div
               onClick={logOut}
-              className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded cursor-pointer"
+              className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded cursor-pointer"
             >
               Log Out
             </div>

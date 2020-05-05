@@ -24,7 +24,6 @@ const PrivatedRoute = ({ ...props }) => {
 
 const AuthRoute = ({ ...props }) => {
   const { state } = useContext(Context);
-  console.log(state.loggedIn);
   return state.loggedIn ? <Redirect to="/" /> : <Route {...props} />;
 };
 
