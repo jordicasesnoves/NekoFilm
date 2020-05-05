@@ -22,6 +22,12 @@ const PrivatedRoute = ({ ...props }) => {
   return state.loggedIn ? <Route {...props} /> : <Redirect to="/login" />;
 };
 
+const AuthRoute = ({ ...props }) => {
+  const { state } = useContext(Context);
+  console.log(state.loggedIn);
+  return state.loggedIn ? <Redirect to="/" /> : <Route {...props} />;
+};
+
 export default function App() {
   return (
     <ContextProvider>
@@ -42,8 +48,8 @@ export default function App() {
                 <Navbar />
                 <TVShowPage />
               </PrivatedRoute>
-              <Route path="/login" component={LogInPage} />
-              <Route path="/signup" component={SignUpPage} />
+              <AuthRoute exact path="/login" component={LogInPage} />
+              <AuthRoute exact path="/signup" component={SignUpPage} />
               <Route path="*">Error 404. Page not found.</Route>
             </Switch>
           </div>
