@@ -1,27 +1,50 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  Redirect,
+} from "react-router-dom";
 
-import { ContextProvider } from "./Context";
+import { ContextProvider, Context } from "./Context";
 
 import { HomePage } from "./pages/HomePage";
 import { MoviePage } from "./pages/MoviePage";
 import { TVShowPage } from "./pages/TVShowPage";
+import { LogInPage } from "./pages/LogInPage";
 
 import { Navbar } from "./components/Navbar";
+import { SignUpPage } from "./pages/SignUpPage";
+
+const PrivatedRoute = ({ ...props }) => {
+  const { state } = useContext(Context);
+  return state.loggedIn ? <Route {...props} /> : <Redirect to="/login" />;
+};
 
 export default function App() {
   return (
     <ContextProvider>
       <Router>
         <div className="bg-gray-100">
-          <Navbar />
-
           {/* Content Container */}
-          <div className="max-w-6xl min-h-screen mx-auto px-8 py-16">
+          <div className="">
             <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/movie/:id" component={MoviePage} />
-              <Route path="/show/:id" component={TVShowPage} />
+              <PrivatedRoute exact path="/">
+                <Navbar />
+                <HomePage />
+              </PrivatedRoute>
+              <PrivatedRoute path="/movie/:id">
+                <Navbar />
+                <MoviePage />
+              </PrivatedRoute>
+              <PrivatedRoute path="/show/:id">
+                <Navbar />
+                <TVShowPage />
+              </PrivatedRoute>
+              <Route path="/login" component={LogInPage} />
+              <Route path="/signup" component={SignUpPage} />
+              <Route path="*">Error 404. Page not found.</Route>
             </Switch>
           </div>
         </div>

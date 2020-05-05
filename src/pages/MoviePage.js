@@ -53,7 +53,7 @@ export const MoviePage = () => {
 
   // MAIN RETURN
   return (
-    <div className="flex ">
+    <div className="flex my-16 max-w-6xl mx-auto">
       <div className="mr-16">
         <LazyPoster
           width={300}
