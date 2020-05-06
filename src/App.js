@@ -16,6 +16,7 @@ import { LogInPage } from "./pages/LogInPage";
 
 import { Navbar } from "./components/Navbar";
 import { SignUpPage } from "./pages/SignUpPage";
+import { MediaPageContainer } from "./components/MediaPageContainer";
 
 const PrivatedRoute = ({ ...props }) => {
   const { state } = useContext(Context);
@@ -39,14 +40,21 @@ export default function App() {
                 <Navbar />
                 <HomePage />
               </PrivatedRoute>
+
               <PrivatedRoute path="/movie/:id">
                 <Navbar />
-                <MoviePage />
+                <MediaPageContainer>
+                  <MoviePage />
+                </MediaPageContainer>
               </PrivatedRoute>
+
               <PrivatedRoute path="/show/:id">
                 <Navbar />
-                <TVShowPage />
+                <MediaPageContainer>
+                  <TVShowPage />
+                </MediaPageContainer>
               </PrivatedRoute>
+
               <AuthRoute exact path="/login" component={LogInPage} />
               <AuthRoute exact path="/signup" component={SignUpPage} />
               <Route path="*">Error 404. Page not found.</Route>

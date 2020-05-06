@@ -1,4 +1,3 @@
-import "../assets/movie.css";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -28,15 +27,14 @@ export const TVShowPage = () => {
     }
   }, [loading]);
 
-  if (!id) return `Please provide a tv show id!`;
-  if (called && loading)
-    return <h1 className="max-w-6xl mx-auto flex">Loading...</h1>;
-  if (!called) return <h1 className="max-w-6xl mx-auto flex">Loading...</h1>;
+  if (!id) return `Please provide a movie id!`;
+  if (called && loading) return <h1 className="text-3xl">Loading...</h1>;
+  if (!called) return <h1 className="text-3xl">Loading...</h1>;
   if (error) return `Error! ${error}`;
 
   return (
-    <div className="flex my-16 max-w-6xl mx-auto">
-      <div className="mr-16">
+    <>
+      <div className="mr-16 animated fadeIn">
         <LazyPoster
           width={300}
           className="rounded shadow-2xl max-w-none"
@@ -44,7 +42,7 @@ export const TVShowPage = () => {
           alt={data.show.name}
         />
       </div>
-      <div className="flex-1">
+      <div className="animated fadeIn">
         <div className="flex-row mb-1 items-center">
           <div className="inline mr-2 text-5xl font-medium align-middle">
             {data.show.name}
@@ -117,6 +115,6 @@ export const TVShowPage = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </>
   );
 };

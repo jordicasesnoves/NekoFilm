@@ -4,6 +4,7 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 import { Context } from "../Context";
 
 import { MediaSwitcher } from "./MediaSwitcher";
+import { Button } from "./Button";
 
 export const Navbar = () => {
   const { state, setState } = useContext(Context);
@@ -66,9 +67,9 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="py-4 mx-auto bg-white shadow">
+    <div className="bg-white shadow">
       <div
-        className="max-w-6xl flex mx-auto justify-between
+        className="max-w-6xl flex mx-auto h-16 align-middle self-center justify-between
        text-gray-700 px-2"
       >
         <Link to={"/"} className="flex items-center font-medium text-xl">
@@ -106,28 +107,12 @@ export const Navbar = () => {
             </>
           )}
         </div>
-        {!state.loggedIn ? (
-          <div className="items-center flex">
-            <div className="px-4 py-2 rounded cursor-pointer mr-2 border border-indigo-500 text-indigo-500">
-              Sign Up
-            </div>
-            <div className="px-4 py-2 bg-indigo-500 text-white rounded cursor-pointer">
-              Log In
-            </div>
+        <div className="items-center flex">
+          <div className="px-4 py-2 mr-2 ">
+            {state.decodedToken.sub.username}
           </div>
-        ) : (
-          <div className="items-center flex">
-            <div className="px-4 py-2 mr-2 ">
-              {state.decodedToken.sub.username}
-            </div>
-            <div
-              onClick={logOut}
-              className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded cursor-pointer"
-            >
-              Log Out
-            </div>
-          </div>
-        )}
+          <Button onClick={logOut}>Log Out</Button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import emptyPoster from "../assets/empty_poster.png";
+import { LazyPoster } from "./LazyPoster";
 
 function useLocalStorage(key, initialValue) {
   const [storedValue, setValue] = useState(() => {
@@ -53,7 +54,7 @@ export default function Show({ id, name, first_air_date, poster_path }) {
     <div
       ref={element}
       className="relative bg-white max-w-sm rounded overflow-hidden shadow-md hover:shadow transition duration-300 ease-in-out"
-      style={{ minHeight: "500px" }}
+      style={{ minHeight: "300px" }}
     >
       {show && (
         <>
@@ -83,19 +84,12 @@ export default function Show({ id, name, first_air_date, poster_path }) {
             </svg>
           </button>
 
-          <img
-            className="relative animated fadeIn w-full"
-            src={
-              poster_path == null
-                ? emptyPoster
-                : `https://image.tmdb.org/t/p/w300${poster_path}`
-            }
+          <LazyPoster
+            src={poster_path}
+            className="relative animated fadeIn w-full h-full"
             alt={name}
+            location="grid"
           />
-          <div className="animated fadeIn px-6 py-4">
-            <div className="font-medium text-xl mb-2">{name}</div>
-            <p className="text-gray-700 font-light">{first_air_date}</p>
-          </div>
         </>
       )}
     </div>

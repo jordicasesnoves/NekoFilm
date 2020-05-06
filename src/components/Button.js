@@ -1,7 +1,7 @@
 import React from "react";
 
 const default_classes =
-  "shadow rounded focus:outline-none focus:shadow-outline px-5 h-10 duration-200 transition-all";
+  "shadow rounded focus:outline-none focus:shadow-outline px-4 h-10 duration-200 transition-all";
 
 const colors = {
   primary: "text-white bg-indigo-500 hover:bg-indigo-700",
@@ -16,17 +16,18 @@ export const Button = ({
   fullWidth = false,
   className,
   color = "primary",
+  ...props
 }) => {
   // Dynamic TailwindCSS classes
   className = [
     default_classes,
-    className,
     colors[color],
     fullWidth ? "w-full" : "",
+    className,
   ].join(" ");
 
   return (
-    <button className={className} type={type}>
+    <button {...props} className={className} type={type}>
       {loading ? (
         <div className="items-center flex">
           <div className="flex-1">

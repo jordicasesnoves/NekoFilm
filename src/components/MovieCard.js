@@ -55,7 +55,7 @@ export default function Movie({ id, title, release_date, poster_path }) {
     <div
       ref={element}
       className="relative bg-white max-w-sm rounded overflow-hidden shadow-md hover:shadow transition duration-300 ease-in-out"
-      style={{ minHeight: "500px" }}
+      style={{ minHeight: "300px" }}
     >
       {show && (
         <>
@@ -87,14 +87,10 @@ export default function Movie({ id, title, release_date, poster_path }) {
 
           <LazyPoster
             src={poster_path}
-            className="relative animated fadeIn w-full"
+            className="relative animated fadeIn w-full h-full"
             alt={title}
+            location="grid"
           />
-
-          <div className="animated fadeIn px-6 py-4">
-            <div className="font-medium text-xl mb-2">{title}</div>
-            <p className="text-gray-700 font-light">{release_date}</p>
-          </div>
         </>
       )}
     </div>
