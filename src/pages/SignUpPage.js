@@ -4,6 +4,7 @@ import { useHistory, Link } from "react-router-dom";
 import { SignUpMutation } from "../graphql/SignUpMutation";
 import { Context } from "../Context";
 import jwt_decode from "jwt-decode";
+import { Button } from "../components/Button";
 
 export const SignUpPage = () => {
   const { state, setState } = useContext(Context);
@@ -106,16 +107,9 @@ export const SignUpPage = () => {
             />
           </div>
           <div className="flex items-center justify-between mb-4">
-            <button
-              className="bg-indigo-500 hover:bg-indigo-700 duration-300 text-white py-2 w-full shadow rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              {loading ? (
-                <p className="font-medium tracking-widest">...</p>
-              ) : (
-                <p>Sign Up</p>
-              )}
-            </button>
+            <Button loading={loading} type="submit" fullWidth color="primary">
+              Sign Up
+            </Button>
           </div>
           <div className="text-gray-600 text-center">
             Already have an account?{" "}

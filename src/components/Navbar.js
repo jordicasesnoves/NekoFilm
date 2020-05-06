@@ -69,7 +69,7 @@ export const Navbar = () => {
     <div className="py-4 mx-auto bg-white shadow">
       <div
         className="max-w-6xl flex mx-auto justify-between
-       text-gray-700 "
+       text-gray-700 px-2"
       >
         <Link to={"/"} className="flex items-center font-medium text-xl">
           NekoFilm

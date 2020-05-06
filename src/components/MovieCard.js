@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import emptyPoster from "../assets/empty_poster.png";
 import { LazyPoster } from "./LazyPoster";
 
 function useLocalStorage(key, initialValue) {

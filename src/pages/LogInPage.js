@@ -4,6 +4,7 @@ import { useHistory, Link } from "react-router-dom";
 import { LogInMutation } from "../graphql/LogInMutation";
 import { Context } from "../Context";
 import jwt_decode from "jwt-decode";
+import { Button } from "../components/Button";
 
 export const LogInPage = () => {
   const { state, setState } = useContext(Context);
@@ -24,7 +25,11 @@ export const LogInPage = () => {
       .then((res) => {
         const token = res.data.login;
         localStorage.setItem("token", token);
-        setState({ ...state, loggedIn: true, decodedToken: jwt_decode(token) });
+        setState({
+          ...state,
+          loggedIn: true,
+          decodedToken: jwt_decode(token),
+        });
         history.push("/");
       })
       .catch((err) => {
@@ -82,16 +87,9 @@ export const LogInPage = () => {
             />
           </div>
           <div className="flex items-center justify-between mb-4">
-            <button
-              className="bg-indigo-500 hover:bg-indigo-700 duration-300 text-white py-2 w-full shadow rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              {loading ? (
-                <p className="font-medium tracking-widest">...</p>
-              ) : (
-                <p>Log In</p>
-              )}
-            </button>
+            <Button loading={loading} type="submit" fullWidth color="primary">
+              Log In
+            </Button>
           </div>
           <div className="text-gray-600 text-center">
             Don't have an account?{" "}
