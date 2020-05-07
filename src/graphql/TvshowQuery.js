@@ -28,6 +28,13 @@ export const tvshowQuery = gql`
           profile_path
         }
       }
+      videos {
+        results {
+          type
+          site
+          key
+        }
+      }
     }
   }
 `;

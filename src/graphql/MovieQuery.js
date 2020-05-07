@@ -31,6 +31,13 @@ export const movieQuery = gql`
           job
         }
       }
+      videos {
+        results {
+          type
+          site
+          key
+        }
+      }
     }
   }
 `;

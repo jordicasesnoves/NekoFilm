@@ -7,6 +7,7 @@ const colors = {
   primary: "text-white bg-indigo-500 hover:bg-indigo-700",
   secondary:
     "text-indigo-500 bg-transparent hover:bg-indigo-500 hover:text-white border border-indigo-500",
+  red: "text-white bg-red-600 hover:bg-red-700",
 };
 
 export const Button = ({
