@@ -1,31 +1,14 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 
-import { useLazyQuery } from "@apollo/react-hooks";
 import { LazyPoster } from "../components/LazyPoster";
-import { tvshowQuery } from "../graphql/TvshowQuery";
 import { CastList } from "../components/CastList";
+import { useMediaData } from "../hooks/useMediaData";
+import { getCountryName } from "../utils/getCountryName";
 
 export const TVShowPage = () => {
-  let { id } = useParams();
-
-  const [getShow, { called, loading, data, error }] = useLazyQuery(
-    tvshowQuery,
-    {
-      variables: { id: Number(id) },
-    }
+  const [id, trailer, direction, called, loading, data, error] = useMediaData(
+    "show"
   );
-
-  // Only do the query when the getMovie function is ready
-  useEffect(() => {
-    getShow();
-  }, [getShow]);
-
-  // Only do this if data is ready
-  useEffect(() => {
-    if (loading === false && called) {
-    }
-  }, [loading]);
 
   if (!id) return `Please provide a movie id!`;
   if (called && loading) return <h1 className="text-3xl">Loading...</h1>;
@@ -67,7 +50,7 @@ export const TVShowPage = () => {
             <span className="italic">
               Created by{" "}
               {data.show.created_by.map((creator) => (
-                <span>{creator.name} </span>
+                <span key={creator.id}>{creator.name}</span>
               ))}
             </span>
           )}
@@ -95,7 +78,7 @@ export const TVShowPage = () => {
               {data.show.created_by.length > 0 && (
                 <span className="italic">
                   {data.show.created_by.map((creator) => (
-                    <span>{creator.name} </span>
+                    <span key={creator.id}>{creator.name} </span>
                   ))}
                 </span>
               )}
@@ -112,6 +95,20 @@ export const TVShowPage = () => {
               FIRST AIR DATE{" "}
             </span>
             <span>{data.show.first_air_date} </span>
+          </li>
+          <li>
+            <span className="text-gray-500 font-medium mr-2">
+              ORIGIN COUNTRIES
+            </span>
+            <span>
+              {data.show.origin_country.length > 0 && (
+                <span>
+                  {data.show.origin_country.map((country) => (
+                    <span key={country}>{getCountryName(country)} </span>
+                  ))}
+                </span>
+              )}
+            </span>
           </li>
         </ul>
       </div>

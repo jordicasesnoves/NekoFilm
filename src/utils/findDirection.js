@@ -1,4 +1,5 @@
 export const findDirection = (media) => {
+  console.log(media);
   let { crew } = media.credits;
   let directors = [];
 

@@ -1,48 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { movieQuery } from "../graphql/MovieQuery";
-
-import { useLazyQuery } from "@apollo/react-hooks";
+import React from "react";
 import { LazyPoster } from "../components/LazyPoster";
 import { CastList } from "../components/CastList";
-import { ListItem } from "../components/ListItem";
-import { findTrailer } from "../utils/findTrailer";
-import { findDirection } from "../utils/findDirection";
 import { Button } from "../components/Button";
 import { TrailerModal } from "../components/TrailerModal";
 
 import { useModal } from "../hooks/useModal";
+import { useMediaData } from "../hooks/useMediaData";
 
 export const MoviePage = () => {
-  // Modeled data from the query
-  const [trailer, setTrailer] = useState({});
-  const [direction, setDirection] = useState("");
-
   // Custom hook for displaying the trailer modal
   const { isShowing, toggle } = useModal();
 
-  let { id } = useParams();
-
-  const [getMovie, { called, loading, data, error }] = useLazyQuery(
-    movieQuery,
-    {
-      variables: { id: Number(id) },
-    }
+  const [id, trailer, direction, called, loading, data, error] = useMediaData(
+    "movie"
   );
-
-  // Only do the query when the getMovie function is ready
-  useEffect(() => {
-    getMovie();
-  }, [getMovie]);
-
-  // Only do this if data is ready
-  useEffect(() => {
-    if (loading === false && called) {
-      // Making the direction and the trailer's data usable
-      setDirection(findDirection(data.movie));
-      setTrailer(findTrailer(data.movie));
-    }
-  }, [loading, called]);
 
   if (!id) return `Please provide a movie id!`;
   if (called && loading) return <h1 className="text-3xl">Loading...</h1>;

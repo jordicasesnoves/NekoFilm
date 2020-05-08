@@ -35,6 +35,7 @@ export const tvshowQuery = gql`
           key
         }
       }
+      origin_country
     }
   }
 `;
