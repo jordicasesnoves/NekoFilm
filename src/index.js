@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 // Import tailwindcss postcss's build
 import "./assets/main.css";
+
 // Import AnimateCSS library
 import "./assets/animate.css";
 import "./assets/index.css";
@@ -10,9 +11,6 @@ import "./assets/index.css";
 import App from "./App";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { createHttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
-import { InMemoryCache } from "apollo-cache-inmemory";
 
 const client = new ApolloClient({
   uri: "https://nekofilm-api.now.sh/graphql",

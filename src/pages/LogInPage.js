@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory, Link } from "react-router-dom";
 import { LogInMutation } from "../graphql/LogInMutation";
-import { Context } from "../Context";
+import { Context, initialSearchState } from "../Context";
 import jwt_decode from "jwt-decode";
 import { Button } from "../components/Button";
 
@@ -25,17 +25,21 @@ export const LogInPage = () => {
       .then((res) => {
         const token = res.data.login;
         localStorage.setItem("token", token);
+
         setState({
-          ...state,
+          ...initialSearchState,
           loggedIn: true,
           decodedToken: jwt_decode(token),
         });
         history.push("/");
       })
       .catch((err) => {
-        alert(err);
+        console.log(err);
+        alert("Error line 36 at LogInPage.js: " + err);
       });
   };
+
+  if (error) return `Error: ${error}`;
 
   return (
     <div className="min-h-screen flex items-center justify-center">

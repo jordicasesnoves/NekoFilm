@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory, useLocation, Link } from "react-router-dom";
 
-import { Context } from "../Context";
+import { Context, initialSearchState } from "../Context";
 
 import { MediaSwitcher } from "./MediaSwitcher";
 import { Button } from "./Button";
@@ -19,9 +19,12 @@ export const Navbar = () => {
 
   function logOut(e) {
     e.preventDefault();
-
-    localStorage.removeItem("token");
-    setState({ ...state, loggedIn: false, decodedToken: null });
+    localStorage.clear();
+    setState({
+      ...initialSearchState,
+      decodedToken: null,
+      loggedIn: false,
+    });
   }
 
   function redirectToHomePage() {

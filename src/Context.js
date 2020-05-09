@@ -23,10 +23,14 @@ if (token) {
   }
 }
 
-const initialState = {
+const initialSearchState = {
   mediaType: 1,
   movieKeyword: "kill bill",
   showKeyword: "",
+};
+
+const initialState = {
+  ...initialSearchState,
   loggedIn: !!token,
   decodedToken: decoded,
 };
@@ -42,4 +46,4 @@ const ContextProvider = (props) => {
   );
 };
 
-export { Context, ContextProvider };
+export { Context, ContextProvider, initialSearchState };
