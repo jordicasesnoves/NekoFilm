@@ -19,6 +19,12 @@ export const LogInPage = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
+
+    // Prevent for submitting more than once
+    if (loading) {
+      return;
+    }
+
     login({
       variables: { email: value.emailValue, password: value.passwordValue },
     })
@@ -38,8 +44,6 @@ export const LogInPage = () => {
         alert("Error line 36 at LogInPage.js: " + err);
       });
   };
-
-  if (error) return `Error: ${error}`;
 
   return (
     <div className="min-h-screen flex items-center justify-center">

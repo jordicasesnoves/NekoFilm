@@ -20,6 +20,12 @@ export const SignUpPage = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
+
+    // Prevent for submitting more than once
+    if (loading) {
+      return;
+    }
+
     signup({
       variables: {
         email: value.emailValue,
