@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-export const TrailerModal = ({ isShowing, hide, trailerURL }) =>
-  isShowing
+export const TrailerModal = ({ isShowing, hide, trailerURL }) => {
+  const [className, setClassName] = useState("fadeIn");
+
+  const willHide = () => {
+    setClassName("fadeOut");
+
+    // We need to leave some time for the fadeOut transition happen
+    setTimeout(() => {
+      hide();
+      setClassName("fadeIn");
+    }, 500);
+  };
+
+  return isShowing
     ? ReactDOM.createPortal(
-        <div className="animated fadeIn faster fixed px-4 py-16 inset-0 flex items-center justify-center">
+        <div
+          className={`animated ${className} faster fixed px-4 py-16 inset-0 flex items-center justify-center`}
+        >
           <div className="fixed inset-0 transition-opacity">
             <div className="absolute inset-0 bg-gray-700 opacity-75"></div>
           </div>
@@ -32,7 +46,7 @@ export const TrailerModal = ({ isShowing, hide, trailerURL }) =>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                 <button
-                  onClick={hide}
+                  onClick={willHide}
                   type="button"
                   className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                 >
@@ -53,3 +67,4 @@ export const TrailerModal = ({ isShowing, hide, trailerURL }) =>
         document.body
       )
     : null;
+};

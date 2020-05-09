@@ -89,12 +89,14 @@ export const MoviePage = () => {
           </div>
         </section>
 
-        <span className="text-gray-500 font-medium mr-2 mt-4 mb-1">
-          OVERVIEW{" "}
-        </span>
-        <div className="mb-6 ">{data.movie.overview}</div>
+        <div className="mb-6">
+          <span className="text-gray-500 font-medium mr-2 mt-4 mb-1">
+            OVERVIEW{" "}
+          </span>
+          <p>{data.movie.overview}</p>
+        </div>
 
-        <ul className="mb-6 leading-relaxed ">
+        <ul className="mb-6 leading-relaxed">
           {CastList.length > 0 && (
             <li className="mb-6">
               <div className="text-gray-500 font-medium mb-1">CAST </div>
@@ -103,15 +105,20 @@ export const MoviePage = () => {
               </div>
             </li>
           )}
-          <li>
-            <span className="text-gray-500 font-medium mr-2">RELEASED</span>
-            <span>{data.movie.release_date} </span>
-          </li>
 
-          <li>
-            <span className="text-gray-500 font-medium mr-2">DURATION </span>
-            <span>{data.movie.runtime} min.</span>
-          </li>
+          {data.movie.release_date && (
+            <li>
+              <span className="text-gray-500 font-medium mr-2">RELEASED</span>
+              <span>{data.movie.release_date}</span>
+            </li>
+          )}
+
+          {data.movie.runtime && (
+            <li>
+              <span className="text-gray-500 font-medium mr-2">DURATION </span>
+              <span>{data.movie.runtime} min.</span>
+            </li>
+          )}
 
           {direction.length > 0 && (
             <li>
