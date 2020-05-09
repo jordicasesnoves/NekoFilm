@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// Import tailwindcss postcss's build
-import "./assets/main.css";
+// Import TailwindCSS postcss's build
+import "./assets/output/tailwind.css";
 
 // Import AnimateCSS library
-import "./assets/animate.css";
+import "animate.css/animate.compat.css";
+
+// Import CSS entry point
 import "./assets/index.css";
 
 import App from "./App";

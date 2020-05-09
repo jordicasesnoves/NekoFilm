@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
+// Default animate.css 'faster' transition duration
+const transitionDuration = 500;
+
 export const TrailerModal = ({ isShowing, hide, trailerURL }) => {
   const [className, setClassName] = useState("fadeIn");
 
@@ -10,8 +13,10 @@ export const TrailerModal = ({ isShowing, hide, trailerURL }) => {
     // We need to leave some time for the fadeOut transition happen
     setTimeout(() => {
       hide();
+
+      // Reset to initial state
       setClassName("fadeIn");
-    }, 500);
+    }, transitionDuration);
   };
 
   return isShowing

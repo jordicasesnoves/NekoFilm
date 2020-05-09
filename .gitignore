@@ -11,6 +11,9 @@
 # production
 /build
 
+# postcss builds
+/src/assets/output
+
 # misc
 .DS_Store
 .env.local
