@@ -4,6 +4,8 @@ Create an account, search any movie or TV show, read some specific info about it
 
 Back-end project [here](https://github.com/jordicasesnoves/NekoFilm-api).
 
+[Live Demo](http://nekofilm.now.sh/)
+
 Technologies: React.js, Apollo GraphQL.
 
 
