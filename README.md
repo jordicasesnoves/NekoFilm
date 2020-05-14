@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create an account, search any movie or TV show, read some specific info about it, and even watch the trailer between thousands of media.
+
+Technologies: React.js, Apollo GraphQL.
+Back-end project [here](https://github.com/jordicasesnoves/NekoFilm-api).
 
 ## Available Scripts
 
