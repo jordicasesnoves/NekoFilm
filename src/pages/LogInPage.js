@@ -13,17 +13,15 @@ export const LogInPage = () => {
   const [login, { data, loading, error }] = useMutation(LogInMutation);
 
   const [value, setValue] = useState({
-    emailValue: "",
-    passwordValue: "",
+    emailValue: "neko@neko.com",
+    passwordValue: "neko",
   });
 
   const submitForm = (e) => {
     e.preventDefault();
 
     // Prevent for submitting more than once
-    if (loading) {
-      return;
-    }
+    if (loading) return;
 
     login({
       variables: { email: value.emailValue, password: value.passwordValue },
@@ -94,6 +92,11 @@ export const LogInPage = () => {
               }
             />
           </div>
+          <div className="p-3 rounded-md mb-6 bg-yellow-300">
+            ⚠️ For <strong>demo purposes</strong>, you can Log In directly with
+            this credentials.
+          </div>
+
           <div className="flex items-center justify-between mb-4">
             <Button loading={loading} type="submit" fullWidth color="primary">
               Log In

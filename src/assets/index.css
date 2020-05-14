@@ -17,6 +17,8 @@
 }
 
 
-* {
+body {
     font-family: "Avenir Next";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
