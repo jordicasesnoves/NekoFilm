@@ -33,6 +33,23 @@ export const Navbar = () => {
     }
   }
 
+  function logoClicked(e) {
+    e.preventDefault();
+    if (state.mediaType === 1) {
+      // movies
+      // Use spread operator in order to prevent overwriting the other keyword
+      setValue({ ...value, movieValue: "" });
+      setState({ ...state, movieKeyword: "" });
+
+      redirectToHomePage();
+    } else {
+      // tv shows
+      setValue({ ...value, showValue: "" });
+      setState({ ...state, showKeyword: "" });
+      redirectToHomePage();
+    }
+  }
+
   function handleClick(e) {
     e.preventDefault();
     if (state.mediaType === 1) {
@@ -75,7 +92,11 @@ export const Navbar = () => {
         className="max-w-6xl flex mx-auto h-16 align-middle self-center justify-between
        text-gray-700 px-2"
       >
-        <Link to={"/"} className="flex items-center font-medium text-xl">
+        <Link
+          onClick={logoClicked}
+          to={"/"}
+          className="flex items-center font-medium text-xl"
+        >
           NekoFilm
         </Link>
         <div className="items-center flex">

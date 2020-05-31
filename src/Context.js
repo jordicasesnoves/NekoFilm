@@ -25,7 +25,7 @@ if (token) {
 
 const initialSearchState = {
   mediaType: 1,
-  movieKeyword: "kill bill",
+  movieKeyword: "",
   showKeyword: "",
 };
 
